@@ -10,7 +10,7 @@ const first = function(array, n = 1) {
 
 // Returns the last n elements of the given array.
 const last = function(array, n = 1) {
-  return n === 1 ? array[array.length - 1] : array.slice(Math.max(0, array.length - 1));
+  return n === 1 ? array[array.length - 1] : array.slice(Math.max(0, array.length - n));
 };
 
 // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
@@ -48,7 +48,7 @@ const each = function(obj, callback=identity) {
 const map = function(obj, callback=identity) {
   const mapped = [];
   each(obj, (item, indexOrKey, obj) => {
-    mappped.push(callback(item, indexOrKey, obj));
+    mapped.push(callback(item, indexOrKey, obj));
   });
   return mapped;
 };
@@ -56,7 +56,7 @@ const map = function(obj, callback=identity) {
 // Return an array of the values to a certain property in the collection.
 // E.g. given an array of people objects, return an array of just their ages.
 const pluck = function(obj, key) {
-  return map(obj, item => obj[key]);
+  return map(obj, item => item[key]);
 };
 
 // Reduces collection to a value which is the accumulated result of running
@@ -124,7 +124,7 @@ const reject = function(arr, callback=identity) {
 const uniq = function(obj) {
   const foundItems = {};
   return filter(obj, item => {
-    return !(item in foundItems) && (foundItems[items] = true);
+    return !(item in foundItems) && (foundItems[item] = true);
   });
 };
 
